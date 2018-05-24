@@ -2,9 +2,6 @@ version: "3.3"
 services:
   tracking:
     build: ./
-    command: /app/init.sh
-    volumes:
-      - ./src:/app/src
     networks:
       - backend
     ports:
@@ -13,6 +10,8 @@ services:
       NODE_ENV: development
     depends_on:
       - redis
+    env_file:
+      - .env
   redis:
     image: redis
     networks:

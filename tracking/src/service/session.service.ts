@@ -12,10 +12,10 @@ export class SessionService {
         this.redisClient = redisClient;
     }
 
-    public create(body: TrackingBodyDto, query: TrackingQueryDto, ref) {
+    public store(body: TrackingBodyDto, query: TrackingQueryDto, ref) {
         let tracking = {};
-        let usedParams = [ 'campaign', 'goal', 'source', 'e', 'g', 'c', 's', 'guid' ];
-        for(let idx in query) {
+        let usedParams = ['campaign', 'goal', 'source', 'e', 'g', 'c', 's', 'guid'];
+        for (let idx in query) {
             if (usedParams.indexOf(idx) === -1) {
                 tracking[idx] = query[idx];
             }
@@ -32,5 +32,25 @@ export class SessionService {
         };
 
         this.redisClient.lpush('sessions', JSON.stringify(data));
+    }
+
+    public startDumpLopp() {
+        const self = this;
+        self.dump(() => {
+            self.startDumpLopp();
+        })
+    }
+    private dump(cb) {
+        const self = this;
+        this.redisClient.lrange('sessions', 0, 1000, function (err, data) {
+            console.log('Dumped ' + data.length + ' items');
+            // Sending data to the sessions service
+            // remove sent data
+            self.redisClient.ltrim('sessions', data.length, -1, function () {
+                setTimeout(() => {
+                    cb();
+                }, 1000)
+            });
+        });
     }
 }

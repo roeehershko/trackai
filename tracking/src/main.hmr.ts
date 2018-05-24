@@ -5,6 +5,12 @@ declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(function(req, res, next) {
+      res.setHeader('Connection', 'close');
+      next();
+  });
+
   await app.listen(3000);
 
   if (module.hot) {

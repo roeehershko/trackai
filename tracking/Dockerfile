@@ -21,6 +21,6 @@ ADD . /app
 EXPOSE  3000
 
 RUN npm run prestart:prod
-COPY ./init.sh /app/init.sh
+
 # Run app using nodemon
 CMD ["npm", "run", "start:prod"]

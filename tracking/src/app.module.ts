@@ -10,4 +10,8 @@ import {RedisProvider} from "./provider/redis.provider";
 })
 
 export class AppModule {
+
+    constructor(sessionService: SessionService) {
+        sessionService.startDumpLopp()
+    }
 }
