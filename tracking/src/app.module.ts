@@ -1,17 +1,23 @@
-import {Module} from '@nestjs/common';
+import {MiddlewareConsumer, Module, RequestMethod} from '@nestjs/common';
 import {AppController} from './controller/app.controller';
 import {SessionService} from './service/session.service';
-import {RedisProvider} from "./provider/redis.provider";
+import {mongoProvider} from "./provider/mongo.provider";
+import {SessionBulkStream} from "./service/session-bulk.stream";
+import {SessionWriteMongoStream} from "./service/session-write-mongo.stream";
+import {TrackerMiddleware} from "./middleware/tracking.middleware";
 
 @Module({
     imports: [],
     controllers: [AppController],
-    providers: [RedisProvider, SessionService]
+    providers: [mongoProvider, SessionBulkStream, SessionWriteMongoStream, SessionService]
 })
 
 export class AppModule {
-
     constructor(sessionService: SessionService) {
-        sessionService.startDumpLopp()
+    }
+
+    configure(consumer: MiddlewareConsumer): void {
+        // Apply tracker middleware
+        consumer.apply(TrackerMiddleware).forRoutes(AppController);
     }
 }

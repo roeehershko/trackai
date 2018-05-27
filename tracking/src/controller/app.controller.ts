@@ -11,7 +11,8 @@ export class AppController {
     @Get('/')
     async root(@Body() data: TrackingBodyDto, @Query() query: TrackingQueryDto, @Response() res, @Headers('referer') ref) {
 
-        // this.sessionService.store(data, query, ref);
+        this.sessionService.store(data, query, ref);
+
         res.send({
             status: 1,
             message: 'Queued'

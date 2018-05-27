@@ -2,6 +2,9 @@ version: "3.3"
 services:
   tracking:
     build: ./
+    command: npm run start:dev
+    volumes:
+      - ./:/app
     networks:
       - backend
     ports:
@@ -9,14 +12,18 @@ services:
     environment:
       NODE_ENV: development
     depends_on:
-      - redis
+      - mongo
     env_file:
       - .env
-  redis:
-    image: redis
+  mongo:
+    image: mongo
+    volumes:
+      - mongodbdata:/data/db
     networks:
       - backend
     ports:
-      - 6379:6379
+      - 27017:27017
 networks:
   backend:
+volumes:
+  mongodbdata:
