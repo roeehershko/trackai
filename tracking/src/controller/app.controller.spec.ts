@@ -1,8 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import { AppController } from './app.controller';
-// import { AppService } from '../service/session.service';
 import {} from 'jest';
+import {SessionService} from "../service/session.service";
+import {mongoProvider} from "../provider/mongo.provider";
+import {SessionBulkStream} from "../service/session-bulk.stream";
+import {SessionWriteMongoStream} from "../service/session-write-mongo.stream";
 
 
 describe('AppController', () => {
@@ -11,14 +13,17 @@ describe('AppController', () => {
     beforeAll(async () => {
         app = await Test.createTestingModule({
             controllers: [AppController],
-            // providers: [AppService],
+            providers: [mongoProvider, SessionBulkStream, SessionWriteMongoStream, SessionService]
         }).compile();
     });
 
     describe('root', () => {
-        it('should return "Hello World!"', () => {
+        it('should return "Queued"', () => {
             const appController = app.get<AppController>(AppController);
-            // expect(appController.root()).toBe('Hello World!');
+            expect(appController.root({ ua: '', ip: '127.0.0.1'}, {}, null)).toBe({
+                status: 1,
+                message: 'Queued'
+            });
         });
     });
 });

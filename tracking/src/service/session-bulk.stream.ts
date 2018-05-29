@@ -8,7 +8,7 @@ export class SessionBulkStream extends Transform {
 
     private chunks = [];
     private pushLeftoverInterval;
-    private options = { maxChunkSize: 500, leftOverInterval: 1000 };
+    private options = { maxChunkSize: 5000, leftOverInterval: 1000 };
 
     constructor() {
         super({ objectMode: true });

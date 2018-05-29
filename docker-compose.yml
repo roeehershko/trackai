@@ -1,0 +1,53 @@
+version: "3.3"
+services:
+  tracking:
+    build: tracking
+    command: npm run start:dev
+    volumes:
+      - ./tracking:/app
+    networks:
+      - backend
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - mongo
+    env_file:
+      - tracking/.env
+  offers:
+    build: offers
+    command: npm run start:dev
+    volumes:
+      - ./offers:/app
+    networks:
+      - backend
+    ports:
+      - 3001:3001
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - mysql
+    env_file:
+      - offers/.env
+  mongo:
+    image: mongo
+    volumes:
+      - mongodbdata:/data/db
+    networks:
+      - backend
+    ports:
+      - 27017:27017
+  mysql:
+    image: mysql
+    volumes:
+      - mysqldbdata:/var/lib/mysql
+    networks:
+      - backend
+    ports:
+      - 3306:3306
+networks:
+  backend:
+volumes:
+  mongodbdata:
+  mysqldbdata:

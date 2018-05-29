@@ -5,6 +5,7 @@ FROM node:alpine
 RUN yarn global add nodemon
 RUN yarn global add typescript
 
+
 # Install packages using Yarn
 ADD ./package.json /tmp/package.json
 RUN cd /tmp && yarn
@@ -17,7 +18,7 @@ WORKDIR /app
 ADD . /app
 
 # Expose port
-EXPOSE  3000
+EXPOSE  3001
 
 RUN npm run prestart:prod
 
