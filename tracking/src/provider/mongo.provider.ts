@@ -6,6 +6,7 @@ export const mongoProvider = {
         return new Promise((resolve, reject) => {
             MongoClient.connect(process.env.MONGO_HOST, function (err, client) {
                 resolve(client);
+
             })
         });
     }

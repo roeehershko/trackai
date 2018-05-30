@@ -1,38 +1,12 @@
-# offers
-
-## Description
-
-description
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
+## Offer Service (Mysql + Redis)
+#### DB Structure
+- offers \
+id, network_id, title, url, created
+- goals \
+id, offer_id, name, created \
+- payouts \
+id, goal_id, revenue
+- conversions \
+id, session_id, total_revenue, created
+conversions_goals
+id, conversion_id, goal_id

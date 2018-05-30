@@ -27,7 +27,7 @@ services:
     environment:
       NODE_ENV: development
     depends_on:
-      - mysql
+      - mariadb
     env_file:
       - offers/.env
   mongo:
@@ -38,14 +38,15 @@ services:
       - backend
     ports:
       - 27017:27017
-  mysql:
-    image: mysql
-    volumes:
-      - mysqldbdata:/var/lib/mysql
+  mariadb:
+    image: mariadb
+    restart: always
     networks:
       - backend
     ports:
       - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
 networks:
   backend:
 volumes:

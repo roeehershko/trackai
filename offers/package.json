@@ -7,7 +7,7 @@
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "nodemon",
+    "start:dev": "nodemon -L",
     "prestart:prod": "rm -rf dist && tsc",
     "start:prod": "node dist/main.js",
     "start:hmr": "node dist/server",
@@ -21,10 +21,13 @@
     "@nestjs/core": "^5.0.0-beta.6",
     "@nestjs/microservices": "^5.0.0-beta.6",
     "@nestjs/testing": "^5.0.0-beta.6",
+    "@nestjs/typeorm": "^5.0.0",
     "@nestjs/websockets": "^5.0.0-beta.6",
     "fastify-formbody": "^2.0.0",
+    "mysql": "^2.15.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",
+    "typeorm": "^0.2.6",
     "typescript": "^2.6.2"
   },
   "devDependencies": {
