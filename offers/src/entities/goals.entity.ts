@@ -14,9 +14,6 @@ export class Goal {
     @Column()
     title: string;
 
-    @Column()
-    payout_amount: string;
-
     @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP'})
     created: Date;
 }

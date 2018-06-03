@@ -1,16 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Payout {
+export class GoalPayoutCountry {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column('int')
-    offer_id: number;
+    goal_id: number;
 
-    @Column()
-    title: string;
+    @Column('int')
+    country_id: number;
 
-    @Column()
-    payout: string;
+    @Column('int')
+    payout_id: number;
 }

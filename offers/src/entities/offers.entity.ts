@@ -6,10 +6,13 @@ export class Offer {
     id: number;
 
     @Column('int')
+    account_id: number;
+
+    @Column('int')
     network_id: number;
 
     @Column('int')
-    default_lander_id: number;
+    default_url_id: number;
 
     @Column()
     title: string;

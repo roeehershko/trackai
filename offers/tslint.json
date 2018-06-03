@@ -12,6 +12,7 @@
       true,
       "single"
     ],
+    "no-console": false,
     "indent": false,
     "member-access": [
       false
