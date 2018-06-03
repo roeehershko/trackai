@@ -1,0 +1,13 @@
+{
+  "$group": {
+    "_id": "$soid",
+    "sid": { $first: "$sid" },
+    "ref": { $first: "$ref" },
+    "ip": { $last: "$ip"  },
+    "campaign": { $first: "$campaign" },
+    "offer": { $first: "$offer" },
+    "lp": { $first: "$lp" },
+    "source": { $first: "$source" },
+    "custom_params": { "$mergeObjects": "$custom_params" },
+  }
+}

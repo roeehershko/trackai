@@ -1,0 +1,63 @@
+version: "3.3"
+services:
+  sessions:
+    build: sessions
+    command: npm run start:dev
+    volumes:
+      - ./sessions:/app
+    networks:
+      - backend
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - mongo
+      - mqtt
+    env_file:
+      - sessions/.env
+  offers:
+    build: offers
+    command: npm run start:dev
+    volumes:
+      - ./offers:/app
+    networks:
+      - backend
+    ports:
+      - 3001:3001
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - mariadb
+      - mqtt
+    env_file:
+      - offers/.env
+  mongo:
+    image: mongo
+    volumes:
+      - mongodbdata:/data/db
+    networks:
+      - backend
+    ports:
+      - 27017:27017
+  mariadb:
+    image: mariadb
+    restart: always
+    volumes:
+      - mysqldbdata:/var/lib/mysql
+    networks:
+      - backend
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+  mqtt:
+    image: ncarlier/mqtt
+    restart: always
+    networks:
+      - backend
+networks:
+  backend:
+volumes:
+  mongodbdata:
+  mysqldbdata:
